@@ -2,6 +2,7 @@ const express = require("express")
 const dotenv = require("dotenv")
 const morgan = require("morgan")
 const connectDB = require("./config/connectDB")
+const cors =require('cors')
 const customersRoute = require("./routes/customersRoute")
 const techniciansRoute =require('./routes/techniciansRoute')
 const usersRoute = require("./routes/usersRoute")
@@ -16,11 +17,12 @@ connectDB();
 //middlewares
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors());
 
 //routes
 app.use("/api/v2/customers", customersRoute);
 app.use('/api/v2/technicians',techniciansRoute)
-app.use("/api/v1/users", usersRoute);
+app.use("/api/v2/users", usersRoute);
 
 //home route
 app.get("/", (req,res)=> {
